@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Move</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #movableFigure {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-color: #3498db;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+    }
+
+    #movableFigure:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="movableFigure"></div>
+
+  <script>
+    const movableFigure = document.getElementById("movableFigure");
+    let positionX = 0;
+    let positionY = 0;
+    const step = 10;
+
+    function updatePosition() {
+      movableFigure.style.left = positionX + "px";
+      movableFigure.style.top = positionY + "px";
+    }
+
+    function handleKeyPress(event) {
+      const key = event.key.toLowerCase();
+      const maxX = window.innerWidth - movableFigure.clientWidth;
+      const maxY = window.innerHeight - movableFigure.clientHeight;
+
+      switch (key) {
+        case "arrowup":
+        case "w":
+          positionY = Math.max(0, positionY - step);
+          break;
+        case "arrowdown":
+        case "s":
+          positionY = Math.min(maxY, positionY + step);
+          break;
+        case "arrowleft":
+        case "a":
+          positionX = Math.max(0, positionX - step);
+          break;
+        case "arrowright":
+        case "d":
+          positionX = Math.min(maxX, positionX + step);
+          break;
+      }
+
+      updatePosition();
+    }
+
+    document.addEventListener("keydown", handleKeyPress);
+    updatePosition();
+  </script>
+
+</body>
+
+</html>
